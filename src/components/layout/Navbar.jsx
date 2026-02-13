@@ -37,7 +37,8 @@ const Navbar = ({ onResetToIntro }) => {
               onClick={handleLogoClick}
               className="text-2xl font-[family-name:var(--font-display)] text-[var(--color-fern)] hover:text-[var(--color-pistacho)] transition-colors cursor-pointer"
             >
-              Portfolio
+              <img src="src\assets\Logo.png" alt="Logo" className="h-8 w-auto" />
+              {/* Portfolio */}
             </button>
           </motion.div>
 
