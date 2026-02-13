@@ -1,6 +1,4 @@
-// 
-
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Layout from './components/layout/Layout';
 import Intro from './modules/intro/Intro';
 import Home from './modules/home/Home';
@@ -10,19 +8,17 @@ import Services from './modules/services/Services';
 import './styles/index.css';
 
 function App() {
+  // Siempre empieza mostrando el intro
   const [showIntro, setShowIntro] = useState(true);
-
-  // Verificar si ya se mostró el intro en esta sesión
-  useEffect(() => {
-    const introShown = sessionStorage.getItem('introShown');
-    if (introShown === 'true') {
-      setShowIntro(false);
-    }
-  }, []);
 
   const handleIntroComplete = () => {
     setShowIntro(false);
-    sessionStorage.setItem('introShown', 'true');
+  };
+
+  // Función para resetear y volver al intro
+  const handleResetToIntro = () => {
+    setShowIntro(true);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -30,7 +26,7 @@ function App() {
       {showIntro ? (
         <Intro onComplete={handleIntroComplete} />
       ) : (
-        <Layout>
+        <Layout onResetToIntro={handleResetToIntro}>
           <Home />
           <About />
           <Projects />
