@@ -4,11 +4,8 @@ import FloatingFlowers from '../../components/common/FloatingFlowers';
 
 const Home = () => {
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[var(--color-parchment)] to-[var(--color-pistacho)]/20 relative overflow-hidden">
-      {/* Florero flotante con flores interactivas */}
-      <FloatingFlowers />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+    <section id="home" className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-[var(--color-parchment)] to-[var(--color-pistacho)]/20 py-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           {/* Saludo animado */}
           <motion.div
@@ -61,7 +58,7 @@ const Home = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.8 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16"
           >
             <a
               href="#projects"
@@ -76,32 +73,34 @@ const Home = () => {
               Contactar
             </a>
           </motion.div>
-
-          {/* Scroll indicator */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 1.2 }}
-            className="mt-20"
-          >
-            <a
-              href="#about"
-              className="inline-flex flex-col items-center text-[var(--color-fern)]/60 hover:text-[var(--color-fern)] transition-colors"
-            >
-              <span className="text-sm mb-2 font-[family-name:var(--font-accent)]">Scroll para más</span>
-              <motion.div
-                animate={{ y: [0, 10, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
-              >
-                <ArrowDown size={24} />
-              </motion.div>
-            </a>
-          </motion.div>
         </div>
       </div>
+
+      {/* Florero centrado debajo del contenido */}
+      <FloatingFlowers />
+
+      {/* Scroll indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6, delay: 1.2 }}
+        className="mt-12"
+      >
+        <a
+          href="#about"
+          className="inline-flex flex-col items-center text-[var(--color-fern)]/60 hover:text-[var(--color-fern)] transition-colors"
+        >
+          <span className="text-sm mb-2 font-[family-name:var(--font-accent)]">Scroll para más</span>
+          <motion.div
+            animate={{ y: [0, 10, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity }}
+          >
+            <ArrowDown size={24} />
+          </motion.div>
+        </a>
+      </motion.div>
     </section>
   );
 };
 
 export default Home;
-
