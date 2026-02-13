@@ -14,9 +14,9 @@ const Home = () => {
             transition={{ duration: 0.6 }}
             className="mb-6"
           >
-            {/* <span className="inline-block px-4 py-2 bg-[var(--color-pistacho)]/30 rounded-full text-[var(--color-fern)] font-[family-name:var(--font-accent)] text-sm mb-4">
+            <span className="inline-block px-4 py-2 bg-[var(--color-pistacho)]/30 rounded-full text-[var(--color-fern)] font-[family-name:var(--font-accent)] text-sm mb-4">
               👋 Bienvenido a mi portafolio
-            </span> */}
+            </span>
           </motion.div>
 
           {/* Título principal */}
