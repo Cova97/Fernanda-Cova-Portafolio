@@ -1,13 +1,14 @@
-import './styles/App.css'
+import Layout from './components/layout/Layout'
+import Home from './modules/home/Home'
+import './styles/index.css';
+
 
 function App() {
   return (
     <>
-      {/* crear un titulo */}
-      <h1 class="text-3xl font-bold text-center mt-4">Mi Portafolio</h1>
-
-      {/* crear un texto de bienvenida */}
-      <p class="text-xl text-center mt-4">¡Bienvenido a mi portafolio!</p>
+      <Layout>
+        <Home />
+      </Layout>
     </>
   )
 }
