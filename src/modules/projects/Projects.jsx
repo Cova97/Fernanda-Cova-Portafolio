@@ -1,0 +1,28 @@
+import { motion } from 'motion/react';
+
+const Projects = () => {
+  return (
+    <section id="projects" className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[var(--color-melon)]/10 to-[var(--color-parchment)] py-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-center"
+        >
+          <h2 className="text-4xl md:text-6xl font-[family-name:var(--font-display)] text-[var(--color-fern)] mb-6">
+            Proyectos
+          </h2>
+          <div className="text-6xl mb-6">🌼</div>
+          <p className="text-lg text-[var(--color-fern)]/70 max-w-2xl mx-auto">
+            Aquí mostraremos los proyectos más destacados con imágenes, 
+            tecnologías utilizadas y enlaces.
+          </p>
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
+export default Projects;
