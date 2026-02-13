@@ -1,40 +1,49 @@
-Mi Portafolio Universitario 🎓
-Este es un proyecto de portafolio profesional desarrollado para el ámbito académico, enfocado en mostrar habilidades técnicas, proyectos y servicios utilizando tecnologías modernas de desarrollo web.
+---
 
-🚀 Tecnologías Principales
-Framework: React.js (con Vite)
+# 🚀 Mi Portafolio Universitario: Arquitectura y Desarrollo
 
-Lenguaje: JavaScript (JS)
+Este proyecto no es solo una carta de presentación; es una muestra de **ingeniería de software aplicada al frontend**. El portafolio ha sido diseñado bajo una metodología *Mobile-First*, priorizando la experiencia de usuario (UX) y el rendimiento óptimo mediante tecnologías de última generación.
 
-Estilos: Tailwind CSS (Utility-first CSS)
+---
 
-Animaciones: Framer Motion
+## 🛠️ Stack Tecnológico
 
-🛠️ Herramientas Complementarias
-Diseño: Figma (Prototipado y UI/UX)
+| Categoría | Tecnología | Rol en el Proyecto |
+| --- | --- | --- |
+| **Core** | **React.js (Vite)** | SPA eficiente con recarga rápida en desarrollo. |
+| **Lenguaje** | **JavaScript (ES6+)** | Lógica dinámica y manipulación del DOM. |
+| **Estilos** | **Tailwind CSS** | Sistema de diseño atómico y responsivo. |
+| **Animaciones** | **Framer Motion** | Interacciones fluidas y transiciones de estado. |
+| **UI Components** | **Shadcn/ui** | Componentes accesibles y altamente personalizables. |
 
-Iconografía: Lucide React
+---
 
-Componentes UI: Shadcn/ui
+## 🏗️ Arquitectura de la Información
 
-Colores: Adobe Color / Coolors
+El portafolio se estructura en módulos independientes para garantizar la escalabilidad:
 
-📂 Estructura del Proyecto
-El portafolio está organizado en 4 módulos principales:
+* **`Home`**: Landing page con un *Call to Action* (CTA) claro y propuesta de valor.
+* **`Sobre mí`**: Storytelling sobre mi trayectoria académica y metas profesionales.
+* **`Proyectos`**: Showcase dinámico con carrusel interactivo y filtrado de tecnologías.
+* **`Servicios`**: Catálogo técnico de soluciones digitales y consultoría.
 
-Home: Introducción y landing page.
+---
 
-Proyectos: Galería de trabajos con carrusel de imágenes.
+## ✨ Características Destacadas
 
-Sobre mí: Trayectoria y perfil profesional.
+* **Diseño Adaptativo**: Interfaz optimizada para dispositivos móviles, tablets y desktop.
+* **Performance**: Optimización de imágenes y carga diferida (lazy loading).
+* **Navegación Intuitiva**: Menú lateral (hamburguesa) con transiciones suaves.
+* **UI/UX Consistente**: Prototipado previo en **Figma** siguiendo principios de diseño visual.
 
-Servicios: Detalle de soluciones ofrecidas.
+---
 
-✨ Características
-Menú hamburguesa responsivo.
+## 📩 Contacto y Redes
 
-Carrusel de imágenes interactivo.
+¿Tienes alguna pregunta o propuesta de colaboración? ¡Hablemos!
 
-Pie de página con integración de redes sociales.
+* **LinkedIn**: [LinkedIn](https://www.linkedin.com/in/fernanda-cova-8a04091b7?utm_source=share_via&utm_content=profile&utm_medium=member_ios)
+* **Email**: covamartinezf@gmail.com
+* ***Behance*: [Bahance](https://www.behance.net/fernandacova)
 
-Diseño adaptativo (Mobile First).
+---
