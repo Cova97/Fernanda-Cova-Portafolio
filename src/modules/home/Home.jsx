@@ -14,9 +14,9 @@ const Home = () => {
             transition={{ duration: 0.6 }}
             className="mb-6"
           >
-            <span className="inline-block px-4 py-2 bg-[var(--color-pistacho)]/30 rounded-full text-[var(--color-fern)] font-[family-name:var(--font-accent)] text-sm mb-4">
+            {/* <span className="inline-block px-4 py-2 bg-[var(--color-pistacho)]/30 rounded-full text-[var(--color-fern)] font-[family-name:var(--font-accent)] text-sm mb-4">
               👋 Bienvenido a mi portafolio
-            </span>
+            </span> */}
           </motion.div>
 
           {/* Título principal */}
@@ -26,9 +26,8 @@ const Home = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-5xl md:text-7xl font-[family-name:var(--font-display)] text-[var(--color-fern)] mb-6"
           >
-            Hola, soy{' '}
+            Hola, soy{' Fernanda Cova Martínez '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-pistacho)] to-[var(--color-fern)]">
-              Tu Nombre
             </span>
           </motion.h1>
 
