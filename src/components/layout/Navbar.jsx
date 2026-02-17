@@ -2,33 +2,33 @@ import { useState } from 'react';
 import { Menu, X, Home, User, Briefcase, Settings } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
-const Navbar = ({ onResetToIntro }) => {
+const Navbar = ({ onResetToIntro, onNavigate }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const navLinks = [
-    { name: 'Home', href: '#home', icon: Home },
-    { name: 'Sobre mí', href: '#about', icon: User },
-    { name: 'Servicios', href: '#services', icon: Settings },
-    { name: 'Proyectos', href: '#projects', icon: Briefcase },
+    { name: 'Home',      icon: Home,      section: 'home'     },
+    { name: 'Sobre mí',  icon: User,      section: 'about'    },
+    { name: 'Servicios', icon: Settings,  section: 'services' },
+    { name: 'Proyectos', icon: Briefcase, section: 'projects' },
   ];
 
   const toggleMenu = () => setIsOpen(!isOpen);
-
-  const closeMenu = () => setIsOpen(false);
+  const closeMenu  = () => setIsOpen(false);
 
   const handleLogoClick = (e) => {
     e.preventDefault();
     closeMenu();
-    if (onResetToIntro) {
-      onResetToIntro();
-    }
+    if (onResetToIntro) onResetToIntro();
   };
 
-  const handleLinkClick = (href) => {
+  const handleLinkClick = (link) => {
+    if (link.section && onNavigate) {
+      onNavigate(link.section);
+    } else if (onNavigate) {
+      // "Home" no tiene section, navega al home
+      onNavigate('home');
+    }
     closeMenu();
-    setTimeout(() => {
-      window.location.href = href;
-    }, 300);
   };
 
   return (
@@ -75,10 +75,8 @@ const Navbar = ({ onResetToIntro }) => {
             transition={{ duration: 0.3 }}
             className="fixed inset-0 z-40 bg-gradient-to-br from-[var(--color-parchment)] via-[var(--color-pistacho)]/20 to-[var(--color-melon)]/20 backdrop-blur-lg"
           >
-            {/* Contenedor centrado del menú */}
             <div className="h-full flex items-center justify-center">
               <div className="w-full max-w-2xl px-8">
-                {/* Enlaces del menú */}
                 <nav className="space-y-6">
                   {navLinks.map((link, index) => {
                     const Icon = link.icon;
@@ -89,28 +87,23 @@ const Navbar = ({ onResetToIntro }) => {
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: -50 }}
                         transition={{ delay: index * 0.1, duration: 0.3 }}
-                        onClick={() => handleLinkClick(link.href)}
+                        onClick={() => handleLinkClick(link)}
                         className="w-full group flex items-center gap-6 text-left"
                       >
                         {/* Icono */}
                         <div className="flex-shrink-0 w-16 h-16 rounded-full bg-[var(--color-pistacho)]/20 flex items-center justify-center group-hover:bg-[var(--color-pistacho)]/40 transition-all group-hover:scale-110">
-                          <Icon 
-                            size={32} 
-                            className="text-[var(--color-fern)] group-hover:text-[var(--color-pistacho)]"
-                          />
+                          <Icon size={32} className="text-[var(--color-fern)] group-hover:text-[var(--color-pistacho)]" />
                         </div>
 
                         {/* Texto */}
-                        <div className="flex-1">
-                          <h3 className="text-4xl md:text-5xl lg:text-6xl font-[family-name:var(--font-display)] text-[var(--color-melon)] group-hover:text-[var(--color-fern)] transition-colors italic">
-                            {link.name}
-                          </h3>
-                        </div>
+                        <h3 className="text-4xl md:text-5xl lg:text-6xl font-[family-name:var(--font-display)] text-[var(--color-melon)] group-hover:text-[var(--color-fern)] transition-colors italic">
+                          {link.name}
+                        </h3>
 
-                        {/* Indicador decorativo */}
+                        {/* Indicador */}
                         <motion.div
                           initial={{ width: 0 }}
-                          whileHover={{ width: "3rem" }}
+                          whileHover={{ width: '3rem' }}
                           className="h-1 bg-[var(--color-pistacho)] rounded-full"
                         />
                       </motion.button>
@@ -118,31 +111,22 @@ const Navbar = ({ onResetToIntro }) => {
                   })}
                 </nav>
 
-                {/* Decoración - Flores flotantes */}
+                {/* Flores decorativas */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5 }}
                   className="mt-16 flex justify-center gap-8 text-5xl"
                 >
-                  <motion.span
-                    animate={{ rotate: [0, 10, 0] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                  >
-                    🌸
-                  </motion.span>
-                  <motion.span
-                    animate={{ rotate: [0, -10, 0] }}
-                    transition={{ duration: 2.5, repeat: Infinity }}
-                  >
-                    🌺
-                  </motion.span>
-                  <motion.span
-                    animate={{ rotate: [0, 10, 0] }}
-                    transition={{ duration: 3, repeat: Infinity }}
-                  >
-                    🌼
-                  </motion.span>
+                  {['🌸', '🌺', '🌼'].map((f, i) => (
+                    <motion.span
+                      key={i}
+                      animate={{ rotate: [0, i % 2 === 0 ? 10 : -10, 0] }}
+                      transition={{ duration: 2 + i * 0.5, repeat: Infinity }}
+                    >
+                      {f}
+                    </motion.span>
+                  ))}
                 </motion.div>
               </div>
             </div>

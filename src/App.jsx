@@ -1,39 +1,57 @@
-import { useState } from 'react';
+import { useState, lazy, Suspense } from 'react';
 import Layout from './components/layout/Layout';
 import Intro from './modules/intro/Intro';
 import Home from './modules/home/Home';
-import About from './modules/about/About';
-import Projects from './modules/projects/Projects';
-import Services from './modules/services/Services';
 import './styles/index.css';
 
+// Carga lazy — solo se importan cuando se navega a ellas
+const About    = lazy(() => import('./modules/about/About'));
+const Projects = lazy(() => import('./modules/projects/Projects'));
+const Services = lazy(() => import('./modules/services/Services'));
+
+// Mapa de secciones disponibles
+const SECTIONS = { home: 'home', about: 'about', projects: 'projects', services: 'services' };
+
 function App() {
-  // Siempre empieza mostrando el intro
-  const [showIntro, setShowIntro] = useState(true);
+  const [showIntro, setShowIntro]     = useState(true);
+  const [currentView, setCurrentView] = useState(SECTIONS.home);
 
   const handleIntroComplete = () => {
     setShowIntro(false);
+    setCurrentView(SECTIONS.home);
+    window.scrollTo({ top: 0 });
   };
 
-  // Función para resetear y volver al intro
   const handleResetToIntro = () => {
     setShowIntro(true);
+    window.scrollTo({ top: 0 });
+  };
+
+  // Navega a una sección (cambia la vista activa)
+  const handleNavigate = (section) => {
+    setCurrentView(section);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  if (showIntro) {
+    return <Intro onComplete={handleIntroComplete} />;
+  }
+
   return (
-    <>
-      {showIntro ? (
-        <Intro onComplete={handleIntroComplete} />
-      ) : (
-        <Layout onResetToIntro={handleResetToIntro}>
-          <Home />
-          <About />
-          <Projects />
-          <Services />
-        </Layout>
-      )}
-    </>
+    <Layout onResetToIntro={handleResetToIntro} onNavigate={handleNavigate}>
+      {/* Cada vista se monta/desmonta de forma independiente */}
+      {currentView === SECTIONS.home && <Home onNavigate={handleNavigate} />}
+
+      <Suspense fallback={
+        <div className="min-h-screen flex items-center justify-center bg-[var(--color-parchment)]">
+          <span className="text-6xl animate-spin">🌸</span>
+        </div>
+      }>
+        {currentView === SECTIONS.about    && <About />}
+        {currentView === SECTIONS.projects && <Projects />}
+        {currentView === SECTIONS.services && <Services />}
+      </Suspense>
+    </Layout>
   );
 }
 
