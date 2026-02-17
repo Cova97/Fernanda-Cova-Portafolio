@@ -38,7 +38,7 @@ function App() {
   }
 
   return (
-    <Layout onResetToIntro={handleResetToIntro} onNavigate={handleNavigate}>
+    <Layout onResetToIntro={handleResetToIntro} onNavigate={handleNavigate} currentView={currentView}>
       {/* Cada vista se monta/desmonta de forma independiente */}
       {currentView === SECTIONS.home && <Home onNavigate={handleNavigate} />}
 
