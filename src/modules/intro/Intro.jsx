@@ -5,7 +5,7 @@ import { ChevronDown } from 'lucide-react';
 const Intro = ({ onComplete }) => {
   const [showIntro, setShowIntro] = useState(true);
 
-  // Auto-avanzar después de 5 segundos (opcional)
+  // Auto-avanzar después de 8 segundos (opcional)
   useEffect(() => {
     const timer = setTimeout(() => {
       handleContinue();
@@ -103,14 +103,29 @@ const Intro = ({ onComplete }) => {
                   <span className="text-6xl md:text-8xl">👋</span>
                 </motion.div>
 
+                {/* Badge de bienvenida */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.9, duration: 0.6 }}
+                  className="mb-6"
+                >
+                  <span className="inline-block px-6 py-2 bg-[var(--color-pistacho)]/30 rounded-full text-[var(--color-fern)] font-[family-name:var(--font-accent)] text-base">
+                    👋 Bienvenido a mi portafolio
+                  </span>
+                </motion.div>
+
                 {/* Título */}
                 <motion.h1
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 1, duration: 0.6 }}
-                  className="text-4xl md:text-5xl font-[family-name:var(--font-display)] text-[var(--color-fern)] mb-4"
+                  transition={{ delay: 1.1, duration: 0.6 }}
+                  className="text-3xl md:text-5xl font-[family-name:var(--font-display)] text-[var(--color-fern)] mb-4"
                 >
-                  ¡Bienvenido!
+                  Hola, soy{' '}
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-pistacho)] to-[var(--color-fern)]">
+                    Fernanda Cova Martínez
+                  </span>
                 </motion.h1>
 
                 {/* Subtítulo */}
@@ -118,9 +133,9 @@ const Intro = ({ onComplete }) => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 1.3, duration: 0.6 }}
-                  className="text-xl md:text-2xl font-[family-name:var(--font-accent)] text-[var(--color-fern)]/80 mb-6"
+                  className="text-lg md:text-xl font-[family-name:var(--font-accent)] text-[var(--color-pistacho)] mb-6"
                 >
-                  Soy <span className="text-[var(--color-fern)] font-bold">Tu Nombre</span>
+                  Desarrollador Full Stack | Diseñador | Creativo
                 </motion.p>
 
                 {/* Descripción */}
@@ -128,10 +143,10 @@ const Intro = ({ onComplete }) => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 1.6, duration: 0.6 }}
-                  className="text-lg text-[var(--color-fern)]/70 mb-8 leading-relaxed"
+                  className="text-base text-[var(--color-fern)]/70 mb-8 leading-relaxed"
                 >
-                  Desarrollador creativo apasionado por transformar ideas 
-                  en experiencias digitales únicas y memorables.
+                  Transformo ideas en experiencias digitales memorables. 
+                  Especializado en crear soluciones web modernas, elegantes y funcionales.
                 </motion.p>
 
                 {/* Línea decorativa */}
