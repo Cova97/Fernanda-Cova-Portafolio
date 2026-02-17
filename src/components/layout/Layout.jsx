@@ -5,7 +5,8 @@ const Layout = ({ children, onResetToIntro, onNavigate }) => {
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar onResetToIntro={onResetToIntro} onNavigate={onNavigate} />
-      <main className="flex-grow pt-16">
+      {/* padding-top dinámico igual que la altura del navbar */}
+      <main className="flex-grow" style={{ paddingTop: 'clamp(56px, 7vw, 88px)' }}>
         {children}
       </main>
       <Footer />

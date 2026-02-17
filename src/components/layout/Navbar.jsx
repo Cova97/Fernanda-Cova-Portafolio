@@ -22,50 +22,47 @@ const Navbar = ({ onResetToIntro, onNavigate }) => {
   };
 
   const handleLinkClick = (link) => {
-    if (link.section && onNavigate) {
-      onNavigate(link.section);
-    } else if (onNavigate) {
-      // "Home" no tiene section, navega al home
-      onNavigate('home');
-    }
+    if (onNavigate) onNavigate(link.section);
     closeMenu();
   };
 
   return (
     <>
-      {/* Navbar compacto - Siempre visible */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-[var(--color-parchment)]/95 backdrop-blur-sm shadow-md">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
+      {/* ── Barra compacta ── */}
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-[var(--color-parchment)]/95 backdrop-blur-sm shadow-sm">
+        <div className="w-full px-[4vw]">
+          <div className="flex justify-between items-center" style={{ height: 'clamp(56px, 7vw, 88px)' }}>
+
             {/* Logo */}
-            <motion.div
+            <motion.button
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              className="flex-shrink-0"
+              onClick={handleLogoClick}
+              className="font-[family-name:var(--font-display)] text-[var(--color-fern)] hover:text-[var(--color-pistacho)] transition-colors cursor-pointer leading-none"
+              style={{ fontSize: 'clamp(1.4rem, 2.8vw, 3rem)' }}
             >
-              <button
-                onClick={handleLogoClick}
-                className="text-2xl font-[family-name:var(--font-display)] text-[var(--color-fern)] hover:text-[var(--color-pistacho)] transition-colors cursor-pointer"
-              >
-                Portfolio
-              </button>
-            </motion.div>
+              Portfolio
+            </motion.button>
 
-            {/* Hamburger button - Siempre visible */}
+            {/* Botón hamburguesa */}
             <motion.button
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               onClick={toggleMenu}
-              className="text-[var(--color-fern)] hover:text-[var(--color-pistacho)] transition-colors p-2 rounded-lg hover:bg-[var(--color-pistacho)]/10"
+              className="text-[var(--color-fern)] hover:text-[var(--color-pistacho)] transition-colors rounded-lg hover:bg-[var(--color-pistacho)]/10 flex items-center justify-center"
+              style={{ padding: 'clamp(6px, 1vw, 14px)' }}
               aria-label="Toggle menu"
             >
-              {isOpen ? <X size={32} /> : <Menu size={32} />}
+              {isOpen
+                ? <X  style={{ width: 'clamp(24px, 3.5vw, 44px)', height: 'clamp(24px, 3.5vw, 44px)' }} />
+                : <Menu style={{ width: 'clamp(24px, 3.5vw, 44px)', height: 'clamp(24px, 3.5vw, 44px)' }} />
+              }
             </motion.button>
           </div>
         </div>
       </nav>
 
-      {/* Menú overlay - Pantalla completa */}
+      {/* ── Overlay pantalla completa ── */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -75,36 +72,51 @@ const Navbar = ({ onResetToIntro, onNavigate }) => {
             transition={{ duration: 0.3 }}
             className="fixed inset-0 z-40 bg-gradient-to-br from-[var(--color-parchment)] via-[var(--color-pistacho)]/20 to-[var(--color-melon)]/20 backdrop-blur-lg"
           >
-            <div className="h-full flex items-center justify-center">
-              <div className="w-full max-w-2xl px-8">
-                <nav className="space-y-6">
+            <div className="h-full flex items-center justify-center px-[6vw]">
+              <div className="w-full max-w-4xl">
+
+                {/* Links */}
+                <nav className="space-y-[2.5vw]">
                   {navLinks.map((link, index) => {
                     const Icon = link.icon;
                     return (
                       <motion.button
                         key={link.name}
-                        initial={{ opacity: 0, x: -50 }}
+                        initial={{ opacity: 0, x: -60 }}
                         animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -50 }}
-                        transition={{ delay: index * 0.1, duration: 0.3 }}
+                        exit={{ opacity: 0, x: -60 }}
+                        transition={{ delay: index * 0.08, duration: 0.35 }}
                         onClick={() => handleLinkClick(link)}
-                        className="w-full group flex items-center gap-6 text-left"
+                        className="w-full group flex items-center gap-[2.5vw] text-left"
                       >
-                        {/* Icono */}
-                        <div className="flex-shrink-0 w-16 h-16 rounded-full bg-[var(--color-pistacho)]/20 flex items-center justify-center group-hover:bg-[var(--color-pistacho)]/40 transition-all group-hover:scale-110">
-                          <Icon size={32} className="text-[var(--color-fern)] group-hover:text-[var(--color-pistacho)]" />
+                        {/* Icono circular */}
+                        <div
+                          className="flex-shrink-0 rounded-full bg-[var(--color-pistacho)]/20 flex items-center justify-center group-hover:bg-[var(--color-pistacho)]/40 transition-all group-hover:scale-110"
+                          style={{
+                            width:  'clamp(48px, 6vw, 88px)',
+                            height: 'clamp(48px, 6vw, 88px)',
+                          }}
+                        >
+                          <Icon
+                            className="text-[var(--color-fern)] group-hover:text-[var(--color-pistacho)] transition-colors"
+                            style={{ width: 'clamp(22px, 2.8vw, 42px)', height: 'clamp(22px, 2.8vw, 42px)' }}
+                          />
                         </div>
 
                         {/* Texto */}
-                        <h3 className="text-4xl md:text-5xl lg:text-6xl font-[family-name:var(--font-display)] text-[var(--color-melon)] group-hover:text-[var(--color-fern)] transition-colors italic">
+                        <h3
+                          className="font-[family-name:var(--font-display)] text-[var(--color-melon)] group-hover:text-[var(--color-fern)] transition-colors italic leading-none"
+                          style={{ fontSize: 'clamp(2.2rem, 6vw, 7rem)' }}
+                        >
                           {link.name}
                         </h3>
 
-                        {/* Indicador */}
+                        {/* Línea decorativa */}
                         <motion.div
+                          className="h-[3px] bg-[var(--color-pistacho)] rounded-full flex-shrink-0"
                           initial={{ width: 0 }}
-                          whileHover={{ width: '3rem' }}
-                          className="h-1 bg-[var(--color-pistacho)] rounded-full"
+                          whileHover={{ width: '4vw' }}
+                          transition={{ duration: 0.2 }}
                         />
                       </motion.button>
                     );
@@ -115,8 +127,9 @@ const Navbar = ({ onResetToIntro, onNavigate }) => {
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5 }}
-                  className="mt-16 flex justify-center gap-8 text-5xl"
+                  transition={{ delay: 0.45 }}
+                  className="mt-[4vw] flex justify-center gap-[3vw]"
+                  style={{ fontSize: 'clamp(1.8rem, 3.5vw, 4.5rem)' }}
                 >
                   {['🌸', '🌺', '🌼'].map((f, i) => (
                     <motion.span
@@ -128,6 +141,7 @@ const Navbar = ({ onResetToIntro, onNavigate }) => {
                     </motion.span>
                   ))}
                 </motion.div>
+
               </div>
             </div>
           </motion.div>
