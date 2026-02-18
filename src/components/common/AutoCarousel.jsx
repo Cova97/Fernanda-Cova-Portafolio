@@ -158,8 +158,8 @@ const AutoCarousel = ({ images = [], speed = 0.25, aspectRatio = 'video' }) => {
       </div>
 
       {/* Gradientes laterales para fade effect */}
-      <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-[var(--color-parchment)] to-transparent pointer-events-none z-10" />
-      <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-[var(--color-parchment)] to-transparent pointer-events-none z-10" />
+      {/* <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-[var(--color-parchment)] to-transparent pointer-events-none z-10" />
+      <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-[var(--color-parchment)] to-transparent pointer-events-none z-10" /> */}
 
     </div>
   );

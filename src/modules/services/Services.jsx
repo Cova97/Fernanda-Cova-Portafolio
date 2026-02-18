@@ -61,7 +61,7 @@ const SECTIONS_DATA = [
   },
   {
     id: 3,
-    title: 'Trabajos',
+    // title: 'Trabajos',
     type: 'carousel',
     carouselImages: Array.from({ length: 8 }, (_, i) => `Trabajo ${i + 1}`),
   },
@@ -77,7 +77,7 @@ const SECTIONS_DATA = [
   },
   {
     id: 5,
-    title: 'Galería',
+    // title: 'Galería',
     type: 'carousel',
     carouselImages: Array.from({ length: 8 }, (_, i) => `Galería ${i + 1}`),
   },
