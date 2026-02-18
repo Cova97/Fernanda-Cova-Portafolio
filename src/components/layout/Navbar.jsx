@@ -40,7 +40,6 @@ const Navbar = ({ onResetToIntro, onNavigate, currentView }) => {
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       >
         <div className="w-full px-[4vw]">
-          {/* Fila superior: logo + hamburguesa — nunca cambian */}
           <div className="flex justify-between items-center" style={{ height: 'clamp(56px, 7vw, 88px)' }}>
             <motion.button
               onClick={handleLogoClick}
@@ -66,35 +65,9 @@ const Navbar = ({ onResetToIntro, onNavigate, currentView }) => {
               }
             </motion.button>
           </div>
-
-          {/* Título "Sobre mí" — se despliega solo en About */}
-          <motion.div
-            initial={false}
-            animate={{
-              height: isAbout ? 'clamp(55px, 7.5vw, 100px)' : '0px',
-              opacity: isAbout ? 1 : 0,
-              marginBottom: isAbout ? 'clamp(8px, 1.2vw, 16px)' : '0px',
-            }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="overflow-hidden"
-          >
-            <motion.h1
-              animate={{ y: isAbout ? 0 : 16 }}
-              transition={{ duration: 0.45, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
-              className="font-[family-name:var(--font-display)] font-semibold italic"
-              style={{
-                fontSize: 'clamp(2rem, 4.5vw, 6rem)',
-                color: 'var(--color-parchment)',
-                lineHeight: 1,
-              }}
-            >
-              Sobre mí
-            </motion.h1>
-          </motion.div>
         </div>
       </motion.nav>
 
-      {/* OVERLAY menú */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
