@@ -147,24 +147,6 @@ const Navbar = ({ onResetToIntro, onNavigate, currentView }) => {
                     );
                   })}
                 </nav>
-
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.45 }}
-                  className="mt-[4vw] flex justify-center gap-[3vw]"
-                  style={{ fontSize: 'clamp(1.8rem, 3.5vw, 4.5rem)' }}
-                >
-                  {['🌸', '🌺', '🌼'].map((f, i) => (
-                    <motion.span
-                      key={i}
-                      animate={{ rotate: [0, i % 2 === 0 ? 10 : -10, 0] }}
-                      transition={{ duration: 2 + i * 0.5, repeat: Infinity }}
-                    >
-                      {f}
-                    </motion.span>
-                  ))}
-                </motion.div>
               </div>
             </div>
           </motion.div>

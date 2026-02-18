@@ -132,26 +132,6 @@ const ProjectsSubNavbar = ({ onProjectSelect, currentProject }) => {
                     </motion.button>
                   ))}
                 </nav>
-
-                {/* Decoración inferior */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5 }}
-                  className="mt-[5vw] flex justify-center gap-[2.5vw]"
-                  style={{ fontSize: 'clamp(1.5rem, 3vw, 4rem)' }}
-                >
-                  {['🌸', '🌺', '🌼', '🌻', '🌷'].map((f, i) => (
-                    <motion.span
-                      key={i}
-                      animate={{ rotate: [0, i % 2 === 0 ? 8 : -8, 0] }}
-                      transition={{ duration: 2 + i * 0.3, repeat: Infinity }}
-                    >
-                      {f}
-                    </motion.span>
-                  ))}
-                </motion.div>
-
               </div>
             </div>
           </motion.div>
