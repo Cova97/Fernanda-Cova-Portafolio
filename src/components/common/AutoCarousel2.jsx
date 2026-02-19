@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 
 /**
- * Carrusel horizontal infinito con drag manual y auto-scroll
+ * Segundo carrusel horizontal infinito con drag manual y auto-scroll
  */
-const AutoCarousel = ({ images = [], speed = 0.3, aspectRatio = 'video' }) => {
+const AutoCarousel2 = ({ images = [], speed = 0.3, aspectRatio = 'video' }) => {
   const [offset, setOffset] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
@@ -155,7 +155,7 @@ const AutoCarousel = ({ images = [], speed = 0.3, aspectRatio = 'video' }) => {
       >
         {tripleImages.map((img, i) => (
           <div
-            key={`${img}-${i}`}
+            key={`carousel2-${img}-${i}`}
             className="flex-shrink-0 h-full relative overflow-hidden"
             style={{
               width: '65%',
@@ -180,4 +180,4 @@ const AutoCarousel = ({ images = [], speed = 0.3, aspectRatio = 'video' }) => {
   );
 };
 
-export default AutoCarousel;
+export default AutoCarousel2;

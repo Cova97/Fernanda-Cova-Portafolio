@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useInView } from 'motion/react';
 import { ChevronDown } from 'lucide-react';
 import AutoCarousel from '../../components/common/AutoCarousel';
+import AutoCarousel2 from '../../components/common/AutoCarousel2';
 
 const SplitWords = ({ text, className = '', style = {}, delay = 0 }) => {
   const ref = useRef(null);
@@ -87,9 +88,24 @@ const SECTIONS_DATA = [
   },
   {
     id: 5,
-    title: 'Galería',
     type: 'carousel',
-    carouselImages: Array.from({ length: 8 }, (_, i) => `Galería ${i + 1}`),
+    carouselImages: [
+      'https://ekskvtmatbrhqmdcybnc.supabase.co/storage/v1/object/public/imagenes/CARRUSEL%202/PATA%20DE%20PERRO%20ILUSTRACIONES-01.jpg',
+      'https://ekskvtmatbrhqmdcybnc.supabase.co/storage/v1/object/public/imagenes/CARRUSEL%202/PATA%20DE%20PERRO%20ILUSTRACIONES-02.jpg',
+      'https://ekskvtmatbrhqmdcybnc.supabase.co/storage/v1/object/public/imagenes/CARRUSEL%202/PATA%20DE%20PERRO%20ILUSTRACIONES-03.jpg',
+      'https://ekskvtmatbrhqmdcybnc.supabase.co/storage/v1/object/public/imagenes/CARRUSEL%202/PATA%20DE%20PERRO%20ILUSTRACIONES-03.jpg',
+      'https://ekskvtmatbrhqmdcybnc.supabase.co/storage/v1/object/public/imagenes/CARRUSEL%202/PATA%20DE%20PERRO%20ILUSTRACIONES-05.jpg',
+      'https://ekskvtmatbrhqmdcybnc.supabase.co/storage/v1/object/public/imagenes/CARRUSEL%202/PATA%20DE%20PERRO%20ILUSTRACIONES-06.jpg',
+      'https://ekskvtmatbrhqmdcybnc.supabase.co/storage/v1/object/public/imagenes/CARRUSEL%202/PATA%20DE%20PERRO%20ILUSTRACIONES-07.jpg',
+      'https://ekskvtmatbrhqmdcybnc.supabase.co/storage/v1/object/public/imagenes/CARRUSEL%202/PATA%20DE%20PERRO%20ILUSTRACIONES-08.jpg',
+      'https://ekskvtmatbrhqmdcybnc.supabase.co/storage/v1/object/public/imagenes/CARRUSEL%202/PATA%20DE%20PERRO%20ILUSTRACIONES-09.jpg',
+      'https://ekskvtmatbrhqmdcybnc.supabase.co/storage/v1/object/public/imagenes/CARRUSEL%202/PATA%20DE%20PERRO%20ILUSTRACIONES-10.jpg',
+      'https://ekskvtmatbrhqmdcybnc.supabase.co/storage/v1/object/public/imagenes/CARRUSEL%202/PATA%20DE%20PERRO%20ILUSTRACIONES-11.jpg',
+      'https://ekskvtmatbrhqmdcybnc.supabase.co/storage/v1/object/public/imagenes/CARRUSEL%202/PATA%20DE%20PERRO%20ILUSTRACIONES-12.jpg',
+      'https://ekskvtmatbrhqmdcybnc.supabase.co/storage/v1/object/public/imagenes/CARRUSEL%202/PATA%20DE%20PERRO%20ILUSTRACIONES-13.jpg',
+      'https://ekskvtmatbrhqmdcybnc.supabase.co/storage/v1/object/public/imagenes/CARRUSEL%202/PATA%20DE%20PERRO%20ILUSTRACIONES-14.jpg',
+      'https://ekskvtmatbrhqmdcybnc.supabase.co/storage/v1/object/public/imagenes/CARRUSEL%202/PATA%20DE%20PERRO%20ILUSTRACIONES-15.jpg',
+    ],
   },
 ];
 
@@ -187,14 +203,14 @@ const Services = () => {
           )}
 
           {section.type === 'carousel' && (
-            <div className="max-w-5xl mx-auto w-full">
-              <h2
-                className="font-[family-name:var(--font-display)] font-semibold italic mb-8"
-                style={{ fontSize: 'clamp(2.5rem, 6vw, 7rem)', color: 'var(--color-fern)', lineHeight: 1 }}
-              >
-                {section.title}
-              </h2>
-              <AutoCarousel images={section.carouselImages} speed={0.25} aspectRatio="video" />
+            <div className="w-full flex flex-col items-center justify-center">
+              <div className="w-full max-w-[90vw]">
+                {section.id === 3 ? (
+                  <AutoCarousel images={section.carouselImages} speed={0.25} aspectRatio="video" />
+                ) : (
+                  <AutoCarousel2 images={section.carouselImages} speed={0.25} aspectRatio="video" />
+                )}
+              </div>
             </div>
           )}
 
