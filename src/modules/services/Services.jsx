@@ -107,9 +107,27 @@ const SECTIONS_DATA = [
     title: 'Clientes',
     type: 'clients',
     clients: [
-      { name: 'Cliente 1', identity: 'Identidad X', place: 'Lugar', year: '2024' },
-      { name: 'Cliente 2', identity: 'Identidad Y', place: 'Lugar', year: '2023' },
-      { name: 'Cliente 3', identity: 'Identidad Z', place: 'Lugar', year: '2024' },
+      { 
+        name: 'Alferd Enchapados',
+        image: 'https://ekskvtmatbrhqmdcybnc.supabase.co/storage/v1/object/public/imagenes/CLIENTES/ICONOS-01.svg',
+        identity: 'Identidad', 
+        place: 'CDMX', 
+        year: '2020' 
+      },
+      { 
+        name: 'Punto Cinco',
+        image: 'https://ekskvtmatbrhqmdcybnc.supabase.co/storage/v1/object/public/imagenes/CLIENTES/ICONOS-02.svg',
+        identity: 'Identidad', 
+        place: 'PUEBLA', 
+        year: '2025' 
+      },
+      { 
+        name: 'Gas GP',
+        image: 'https://ekskvtmatbrhqmdcybnc.supabase.co/storage/v1/object/public/imagenes/CLIENTES/ICONOS-03.svg',
+        identity: 'Identidad', 
+        place: 'ACAPULCO', 
+        year: '2023' 
+      },
     ],
   },
   {
@@ -119,7 +137,7 @@ const SECTIONS_DATA = [
       'https://ekskvtmatbrhqmdcybnc.supabase.co/storage/v1/object/public/imagenes/CARRUSEL%202/PATA%20DE%20PERRO%20ILUSTRACIONES-01.jpg',
       'https://ekskvtmatbrhqmdcybnc.supabase.co/storage/v1/object/public/imagenes/CARRUSEL%202/PATA%20DE%20PERRO%20ILUSTRACIONES-02.jpg',
       'https://ekskvtmatbrhqmdcybnc.supabase.co/storage/v1/object/public/imagenes/CARRUSEL%202/PATA%20DE%20PERRO%20ILUSTRACIONES-03.jpg',
-      'https://ekskvtmatbrhqmdcybnc.supabase.co/storage/v1/object/public/imagenes/CARRUSEL%202/PATA%20DE%20PERRO%20ILUSTRACIONES-03.jpg',
+      'https://ekskvtmatbrhqmdcybnc.supabase.co/storage/v1/object/public/imagenes/CARRUSEL%202/PATA%20DE%20PERRO%20ILUSTRACIONES-04.jpg',
       'https://ekskvtmatbrhqmdcybnc.supabase.co/storage/v1/object/public/imagenes/CARRUSEL%202/PATA%20DE%20PERRO%20ILUSTRACIONES-05.jpg',
       'https://ekskvtmatbrhqmdcybnc.supabase.co/storage/v1/object/public/imagenes/CARRUSEL%202/PATA%20DE%20PERRO%20ILUSTRACIONES-06.jpg',
       'https://ekskvtmatbrhqmdcybnc.supabase.co/storage/v1/object/public/imagenes/CARRUSEL%202/PATA%20DE%20PERRO%20ILUSTRACIONES-07.jpg',
@@ -141,21 +159,7 @@ const Services = () => {
   const goNext = () => setCurrentSection((prev) => Math.min(prev + 1, SECTIONS_DATA.length - 1));
   const goPrev = () => setCurrentSection((prev) => Math.max(prev - 1, 0));
 
-  useEffect(() => {
-    let timeout;
-    const handleWheel = (e) => {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => {
-        if (e.deltaY > 0) goNext();
-        else goPrev();
-      }, 100);
-    };
-    window.addEventListener('wheel', handleWheel, { passive: true });
-    return () => {
-      window.removeEventListener('wheel', handleWheel);
-      clearTimeout(timeout);
-    };
-  }, [currentSection]);
+  // Ya no hay listener de wheel - solo navegación con botones
 
   const section = SECTIONS_DATA[currentSection];
 
@@ -169,7 +173,7 @@ const Services = () => {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -30 }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="min-h-screen flex flex-col justify-center px-[6vw] py-[6vw]"
+          className="min-h-screen flex flex-col justify-center px-[6vw] py-[4vw]"
         >
 
           {section.type === 'intro' && (
@@ -197,7 +201,7 @@ const Services = () => {
           )}
 
           {section.type === 'services' && (
-            <div className="flex justify-center items-center min-h-[70vh]">
+            <div className="flex justify-center items-center">
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-[4vw] max-w-7xl">
                 {section.services.map((service, i) => (
                   <motion.div
@@ -245,28 +249,34 @@ const Services = () => {
           )}
 
           {section.type === 'clients' && (
-            <div>
+            <div className="flex flex-col items-center justify-center">
               <h2
-                className="font-[family-name:var(--font-display)] font-semibold italic mb-12"
+                className="font-[family-name:var(--font-display)] font-semibold italic mb-12 self-start"
                 style={{ fontSize: 'clamp(3rem, 7vw, 9rem)', color: 'var(--color-fern)', lineHeight: 1, perspective: '600px' }}
               >
                 <SplitWords text={section.title} />
               </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-4xl">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12 max-w-5xl">
                 {section.clients.map((client, i) => (
                   <motion.div
                     key={i}
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: i * 0.12, duration: 0.5 }}
-                    className="flex flex-col gap-3"
+                    className="flex flex-col gap-4 items-center"
                   >
-                    <div className="w-full aspect-square bg-[#d4d0c8] rounded-lg" />
-                    <div className="text-sm font-[family-name:var(--font-sans)] text-[var(--color-fern)]">
-                      <p className="font-bold">{client.name}</p>
-                      <p className="text-[var(--color-pistacho)]">{client.identity}</p>
-                      <p>{client.place}</p>
-                      <p>{client.year}</p>
+                    <div className="w-full aspect-square bg-[#d4d0c8]/20 rounded-lg overflow-hidden flex items-center justify-center p-8">
+                      <img 
+                        src={client.image} 
+                        alt={client.name}
+                        className="w-full h-full object-contain"
+                      />
+                    </div>
+                    <div className="text-center font-[family-name:var(--font-sans)]">
+                      <p className="font-bold text-[clamp(1rem,1.3vw,1.4rem)]" style={{ color: '#3E8440' }}>{client.name}</p>
+                      <p className="text-[clamp(0.9rem,1.1vw,1.2rem)]" style={{ color: '#3E8440' }}>{client.identity}</p>
+                      <p className="text-[clamp(0.85rem,1vw,1.1rem)]" style={{ color: '#3E8440' }}>{client.place}</p>
+                      <p className="text-[clamp(0.85rem,1vw,1.1rem)]" style={{ color: '#3E8440' }}>{client.year}</p>
                     </div>
                   </motion.div>
                 ))}
