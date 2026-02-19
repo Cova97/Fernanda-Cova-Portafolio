@@ -67,10 +67,10 @@ const FadeLabel = ({ text, light = false }) => {
       transition={{ duration: 0.5, ease: 'easeOut' }}
       style={{
         fontFamily: 'var(--font-accent)',
-        fontSize: 'clamp(0.85rem, 1.1vw, 1.1rem)',
+        fontSize: 'clamp(1.1rem, 1.5vw, 1.6rem)',
         fontWeight: 700,
         letterSpacing: '0.06em',
-        color: light ? 'var(--color-parchment)' : 'var(--color-fern)',
+        color: light ? 'var(--color-parchment)' : 'var(--color-melon)',
       }}
     >
       {text}
@@ -113,10 +113,30 @@ const About = () => {
     <div id="about" className="overflow-x-hidden">
 
       {/* ══════════════════════════════
+          TÍTULO PRINCIPAL "Sobre mí"
+      ══════════════════════════════ */}
+      <div className="bg-[var(--color-parchment)] px-[3vw] pt-[8vw] pb-[4vw]" style={{ maxWidth: '1600px', margin: '0 auto' }}>
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="font-semibold italic"
+          style={{
+            fontFamily: 'var(--font-display)',
+            fontSize: 'clamp(3rem, 7vw, 9rem)',
+            color: 'var(--color-melon)',
+            lineHeight: 1,
+          }}
+        >
+          Sobre mí
+        </motion.h1>
+      </div>
+
+      {/* ══════════════════════════════
           1. PROPÓSITO — fondo parchment
       ══════════════════════════════ */}
       <ParallaxSection bg="var(--color-parchment)" className="min-h-screen flex flex-col justify-center">
-        <div className="w-full px-[5vw] py-[8vw]" style={{ maxWidth: '1400px', margin: '0 auto' }}>
+        <div className="w-full px-[3vw] py-[8vw]" style={{ maxWidth: '1600px', margin: '0 auto' }}>
           <div className="flex gap-[4vw]">
 
             {/* Columna izquierda — label */}
@@ -133,7 +153,7 @@ const About = () => {
                 <SplitWords text="Soluciones visuales integrales donde la estrategia y el arte convergen." />
               </h2>
               <FadeUp delay={0.3} className="max-w-xl">
-                <p style={{ fontFamily: bodyFont, fontSize: bodySize, color: 'var(--color-fern)', fontWeight: 400, lineHeight: 1.65 }}>
+                <p style={{ fontFamily: bodyFont, fontSize: bodySize, color: 'var(--color-melon)', fontWeight: 400, lineHeight: 1.65 }}>
                   Transformar soluciones visuales en sistemas vivos y funcionales que permitan a cada proyecto florecer con una identidad propia, auténtica y equilibrada.
                 </p>
               </FadeUp>
@@ -147,7 +167,7 @@ const About = () => {
           2. VISIÓN — fondo melon
       ══════════════════════════════ */}
       <ParallaxSection bg="var(--color-melon)" className="min-h-screen flex flex-col justify-center">
-        <div className="w-full px-[5vw] py-[8vw]" style={{ maxWidth: '1400px', margin: '0 auto' }}>
+        <div className="w-full px-[3vw] py-[8vw]" style={{ maxWidth: '1600px', margin: '0 auto' }}>
           <div className="flex gap-[4vw]">
 
             <div className="w-[12vw] min-w-[80px] pt-[0.6em] flex-shrink-0">
@@ -176,7 +196,7 @@ const About = () => {
           3. VALORES — fondo parchment
       ══════════════════════════════ */}
       <ParallaxSection bg="var(--color-parchment)" className="min-h-screen flex flex-col justify-center">
-        <div className="w-full px-[5vw] py-[8vw]" style={{ maxWidth: '1400px', margin: '0 auto' }}>
+        <div className="w-full px-[3vw] py-[8vw]" style={{ maxWidth: '1600px', margin: '0 auto' }}>
           <div className="flex gap-[4vw]">
 
             <div className="w-[12vw] min-w-[80px] pt-[0.6em] flex-shrink-0">
@@ -191,12 +211,12 @@ const About = () => {
                 <SplitWords text="La práctica se sostine sobre pilares sólidos y equilibrados" />
               </h2>
               <FadeUp delay={0.25} className="max-w-xl">
-                <p style={{ fontFamily: bodyFont, fontSize: bodySize, color: 'var(--color-fern)', fontWeight: 400, lineHeight: 1.65, marginBottom: '1.4em' }}>
+                <p style={{ fontFamily: bodyFont, fontSize: bodySize, color: 'var(--color-melon)', fontWeight: 400, lineHeight: 1.65, marginBottom: '1.4em' }}>
                   Cada simiento se basa a través de un holismo creativo donde cada proyecto se convierte en un organismo completo; entiendo que detrás de cada decisión debe existir una estrategia con base científica y de mercado.
                 </p>
               </FadeUp>
               <FadeUp delay={0.45} className="max-w-xl">
-                <p style={{ fontFamily: bodyFont, fontSize: bodySize, color: 'var(--color-fern)', fontWeight: 400, lineHeight: 1.65 }}>
+                <p style={{ fontFamily: bodyFont, fontSize: bodySize, color: 'var(--color-melon)', fontWeight: 400, lineHeight: 1.65 }}>
                   Todo crecimiento orgánico que respeta la esencia auténtica de cada proyecto, se potencia mediante una curiosidad multidisciplinaria que combina diversas áreas de diseño para crear ecosistemas visuales resilientes, diversos y funcionales.
                 </p>
               </FadeUp>
@@ -210,7 +230,7 @@ const About = () => {
           4. CULTURA — fondo melon
       ══════════════════════════════ */}
       <ParallaxSection bg="var(--color-melon)" className="min-h-screen flex flex-col justify-center">
-        <div className="w-full px-[5vw] py-[8vw]" style={{ maxWidth: '1400px', margin: '0 auto' }}>
+        <div className="w-full px-[3vw] py-[8vw]" style={{ maxWidth: '1600px', margin: '0 auto' }}>
           <div className="flex gap-[4vw]">
 
             <div className="w-[12vw] min-w-[80px] pt-[0.6em] flex-shrink-0">
