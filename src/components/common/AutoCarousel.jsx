@@ -1,67 +1,84 @@
 import { useState, useEffect, useRef } from 'react';
 
 /**
- * Carrusel horizontal infinito plano con drag manual y auto-scroll
- * Las imágenes se desplazan continuamente de derecha a izquierda
- * El usuario puede arrastrar con el mouse para controlar manualmente
- * 
- * @param {Array} images - Array de strings (URLs o placeholders)
- * @param {number} speed - Velocidad de desplazamiento automático (default: 0.25)
- * @param {string} aspectRatio - Aspect ratio del contenedor (default: 'video' = 16:9)
+ * Carrusel horizontal infinito con drag manual y auto-scroll
  */
-const AutoCarousel = ({ images = [], speed = 0.25, aspectRatio = 'video' }) => {
+const AutoCarousel = ({ images = [], speed = 0.3, aspectRatio = 'video' }) => {
   const [offset, setOffset] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
-  const [dragOffset, setDragOffset] = useState(0);
   const containerRef = useRef(null);
+  const animationRef = useRef(null);
 
-  // Auto-scroll (se pausa al hacer drag)
+  // Auto-scroll continuo
   useEffect(() => {
     if (images.length === 0 || isDragging) return;
     
-    const timer = setInterval(() => {
+    let lastTimestamp = 0;
+    
+    const animate = (timestamp) => {
+      if (!lastTimestamp) lastTimestamp = timestamp;
+      const delta = timestamp - lastTimestamp;
+      lastTimestamp = timestamp;
+      
       setOffset((prev) => {
-        const newOffset = prev - speed;
-        if (Math.abs(newOffset) >= 100) return 0;
+        // Mover hacia la izquierda continuamente
+        let newOffset = prev - (speed * delta / 16.67);
+        
+        // Cada imagen ocupa 90% (85% + 2.5% margen × 2)
+        const singleSetWidth = images.length * 90;
+        
+        // Reiniciar cuando se completa un set completo
+        if (Math.abs(newOffset) >= singleSetWidth) {
+          return newOffset + singleSetWidth;
+        }
+        
         return newOffset;
       });
-    }, 30);
-
-    return () => clearInterval(timer);
+      
+      animationRef.current = requestAnimationFrame(animate);
+    };
+    
+    animationRef.current = requestAnimationFrame(animate);
+    
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
   }, [images.length, speed, isDragging]);
 
-  // Handlers del drag
+  // Mouse drag handlers
   const handleMouseDown = (e) => {
     setIsDragging(true);
     setStartX(e.clientX);
-    setDragOffset(0);
     if (containerRef.current) {
       containerRef.current.style.cursor = 'grabbing';
     }
   };
 
   const handleMouseMove = (e) => {
-    if (!isDragging) return;
+    if (!isDragging || !containerRef.current) return;
     const diff = e.clientX - startX;
-    const containerWidth = containerRef.current?.offsetWidth || 1;
-    // Convertir píxeles a porcentaje
+    const containerWidth = containerRef.current.offsetWidth;
     const percentDiff = (diff / containerWidth) * 100;
-    setDragOffset(percentDiff);
+    
+    setOffset((prev) => {
+      const newOffset = prev + percentDiff;
+      const singleSetWidth = images.length * 90;
+      
+      // Normalizar para mantener loop
+      if (newOffset > 0) return newOffset - singleSetWidth;
+      if (Math.abs(newOffset) >= singleSetWidth * 2) return newOffset + singleSetWidth;
+      
+      return newOffset;
+    });
+    
+    setStartX(e.clientX);
   };
 
   const handleMouseUp = () => {
-    if (!isDragging) return;
     setIsDragging(false);
-    // Aplicar el drag al offset permanente
-    setOffset((prev) => {
-      const newOffset = prev + dragOffset;
-      // Normalizar para mantener el loop
-      if (newOffset > 0) return newOffset - 100;
-      if (newOffset < -200) return newOffset + 100;
-      return newOffset;
-    });
-    setDragOffset(0);
     if (containerRef.current) {
       containerRef.current.style.cursor = 'grab';
     }
@@ -73,19 +90,29 @@ const AutoCarousel = ({ images = [], speed = 0.25, aspectRatio = 'video' }) => {
     }
   };
 
-  // Touch events para móviles
+  // Touch handlers
   const handleTouchStart = (e) => {
     setIsDragging(true);
     setStartX(e.touches[0].clientX);
-    setDragOffset(0);
   };
 
   const handleTouchMove = (e) => {
-    if (!isDragging) return;
+    if (!isDragging || !containerRef.current) return;
     const diff = e.touches[0].clientX - startX;
-    const containerWidth = containerRef.current?.offsetWidth || 1;
+    const containerWidth = containerRef.current.offsetWidth;
     const percentDiff = (diff / containerWidth) * 100;
-    setDragOffset(percentDiff);
+    
+    setOffset((prev) => {
+      const newOffset = prev + percentDiff;
+      const singleSetWidth = images.length * 90;
+      
+      if (newOffset > 0) return newOffset - singleSetWidth;
+      if (Math.abs(newOffset) >= singleSetWidth * 2) return newOffset + singleSetWidth;
+      
+      return newOffset;
+    });
+    
+    setStartX(e.touches[0].clientX);
   };
 
   const handleTouchEnd = () => {
@@ -94,10 +121,9 @@ const AutoCarousel = ({ images = [], speed = 0.25, aspectRatio = 'video' }) => {
 
   if (images.length === 0) return null;
 
-  const duplicatedImages = [...images, ...images, ...images];
-  const currentOffset = offset + dragOffset;
+  // Triplicar para loop infinito
+  const tripleImages = [...images, ...images, ...images];
 
-  // Aspect ratios disponibles
   const aspectClasses = {
     video: 'aspect-video',
     square: 'aspect-square',
@@ -119,47 +145,36 @@ const AutoCarousel = ({ images = [], speed = 0.25, aspectRatio = 'video' }) => {
       onTouchEnd={handleTouchEnd}
     >
       
-      {/* Container de las imágenes con desplazamiento */}
+      {/* Container de las imágenes */}
       <div
         className="flex absolute left-0 top-0 h-full"
         style={{
-          transform: `translateX(${currentOffset}%)`,
-          transition: isDragging ? 'none' : 'transform 0.05s linear',
+          transform: `translateX(${offset}%)`,
+          willChange: 'transform',
         }}
       >
-        {duplicatedImages.map((img, i) => (
+        {tripleImages.map((img, i) => (
           <div
             key={`${img}-${i}`}
-            className="flex-shrink-0 h-full bg-[#d4d0c8] flex items-center justify-center relative rounded-lg overflow-hidden"
+            className="flex-shrink-0 h-full relative overflow-hidden"
             style={{
               width: '85%',
               marginRight: '2.5%',
               marginLeft: '2.5%',
             }}
           >
-            {/* Si es una URL de imagen, renderiza <img>, si no, texto placeholder */}
-            {typeof img === 'string' && (img.startsWith('http') || img.startsWith('/')) ? (
-              <img 
-                src={img} 
-                alt="" 
-                className="w-full h-full object-cover pointer-events-none"
-                draggable={false}
-              />
-            ) : (
-              <span className="text-[#a09a90] text-sm font-[family-name:var(--font-sans)] select-none pointer-events-none">
-                {img}
-              </span>
-            )}
+            <img 
+              src={img} 
+              alt={`Imagen ${(i % images.length) + 1}`}
+              className="w-full h-full object-cover pointer-events-none rounded-lg"
+              draggable={false}
+            />
 
-            {/* Overlay sutil al pasar el mouse */}
+            {/* Overlay al hover */}
             <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-fern)]/10 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-lg pointer-events-none" />
           </div>
         ))}
       </div>
-
-      {/* Gradientes laterales para fade effect */}
-      {/* <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-[var(--color-parchment)] to-transparent pointer-events-none z-10" />
-      <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-[var(--color-parchment)] to-transparent pointer-events-none z-10" /> */}
 
     </div>
   );

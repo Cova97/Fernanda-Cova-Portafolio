@@ -61,9 +61,19 @@ const SECTIONS_DATA = [
   },
   {
     id: 3,
-    // title: 'Trabajos',
     type: 'carousel',
-    carouselImages: Array.from({ length: 8 }, (_, i) => `Trabajo ${i + 1}`),
+    carouselImages: [
+      'https://ekskvtmatbrhqmdcybnc.supabase.co/storage/v1/object/public/imagenes/CARRUSEL%201/_ADS0011.jpg',
+      'https://ekskvtmatbrhqmdcybnc.supabase.co/storage/v1/object/public/imagenes/CARRUSEL%201/_ADS0014.jpg',
+      'https://ekskvtmatbrhqmdcybnc.supabase.co/storage/v1/object/public/imagenes/CARRUSEL%201/_ADS0024.jpg',
+      'https://ekskvtmatbrhqmdcybnc.supabase.co/storage/v1/object/public/imagenes/CARRUSEL%201/_ADS0033.jpg',
+      'https://ekskvtmatbrhqmdcybnc.supabase.co/storage/v1/object/public/imagenes/CARRUSEL%201/_ADS0065.jpg',
+      'https://ekskvtmatbrhqmdcybnc.supabase.co/storage/v1/object/public/imagenes/CARRUSEL%201/_DSC1436.JPG',
+      'https://ekskvtmatbrhqmdcybnc.supabase.co/storage/v1/object/public/imagenes/CARRUSEL%201/_DSC1438.JPG',
+      'https://ekskvtmatbrhqmdcybnc.supabase.co/storage/v1/object/public/imagenes/CARRUSEL%201/_DSC1453.JPG',
+      'https://ekskvtmatbrhqmdcybnc.supabase.co/storage/v1/object/public/imagenes/CARRUSEL%201/_DSC1459.JPG',
+      'https://ekskvtmatbrhqmdcybnc.supabase.co/storage/v1/object/public/imagenes/CARRUSEL%201/_DSC1461.JPG',
+    ],
   },
   {
     id: 4,
@@ -77,7 +87,7 @@ const SECTIONS_DATA = [
   },
   {
     id: 5,
-    // title: 'Galería',
+    title: 'Galería',
     type: 'carousel',
     carouselImages: Array.from({ length: 8 }, (_, i) => `Galería ${i + 1}`),
   },
