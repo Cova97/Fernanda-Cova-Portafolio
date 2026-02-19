@@ -25,7 +25,7 @@ const SplitWords = ({ text, className = '', style = {}, delay = 0 }) => {
   );
 };
 
-const PopIcon = ({ delay = 0 }) => {
+const PopIcon = ({ icon, delay = 0 }) => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: false, margin: '-8% 0px -8% 0px' });
 
@@ -36,8 +36,14 @@ const PopIcon = ({ delay = 0 }) => {
       animate={inView ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
       transition={{ duration: 0.5, delay, type: 'spring', stiffness: 200, damping: 15 }}
       whileHover={{ scale: 1.15, rotate: 5 }}
-      className="w-16 h-16 rounded-full bg-[#d4d0c8] flex-shrink-0"
-    />
+      className="w-20 h-20 rounded-full bg-[#d4d0c8]/30 flex items-center justify-center flex-shrink-0"
+    >
+      <img 
+        src={icon} 
+        alt="Icono de servicio"
+        className="w-12 h-12 object-contain"
+      />
+    </motion.div>
   );
 };
 
@@ -53,11 +59,31 @@ const SECTIONS_DATA = [
     title: 'Servicios',
     type: 'services',
     services: [
-      { name: 'Ilustración', items: ['Gráficos decorativos', 'Diseño de personajes', 'Ilustración isométrica', 'Ilustración análoga'] },
-      { name: 'Identidad\nde marca', items: ['Diseño de conceptos', 'Identidad visual', 'Papelería', 'Diseño de empaque', 'Merchandising'] },
-      { name: 'Diseño\neditorial', items: ['Diseño de libros', 'Diseño de revistas', 'Diseño de catálogos', 'Tipografías'] },
-      { name: 'UX/UI', items: ['Desarrollo de apps', 'Desarrollo front-end', 'Desarrollo back-end', 'Experiencias de usuario', 'Análisis de usabilidad'] },
-      { name: 'Fotografía', items: ['Dirección creativa', 'Retrato', 'Arquitectura'] },
+      { 
+        name: 'Ilustración', 
+        icon: 'https://ekskvtmatbrhqmdcybnc.supabase.co/storage/v1/object/public/imagenes/ICONO%20HAMBURGUESA/ICONOS-17.svg',
+        items: ['Gráficos decorativos', 'Diseño de personajes', 'Ilustración isométrica', 'Ilustración análoga'] 
+      },
+      { 
+        name: 'Identidad\nde marca', 
+        icon: 'https://ekskvtmatbrhqmdcybnc.supabase.co/storage/v1/object/public/imagenes/ICONOS%20MENU/ICONOS-13.svg',
+        items: ['Diseño de conceptos', 'Identidad visual', 'Papelería', 'Diseño de empaque', 'Merchandising'] 
+      },
+      { 
+        name: 'Diseño\neditorial', 
+        icon: 'https://ekskvtmatbrhqmdcybnc.supabase.co/storage/v1/object/public/imagenes/ICONOS%20MENU/ICONOS-14.svg',
+        items: ['Diseño de libros', 'Diseño de revistas', 'Diseño de catálogos', 'Tipografías'] 
+      },
+      { 
+        name: 'UX/UI', 
+        icon: 'https://ekskvtmatbrhqmdcybnc.supabase.co/storage/v1/object/public/imagenes/ICONOS%20MENU/ICONOS-15.svg',
+        items: ['Desarrollo de apps', 'Desarrollo front-end', 'Desarrollo back-end', 'Experiencias de usuario', 'Análisis de usabilidad'] 
+      },
+      { 
+        name: 'Fotografía', 
+        icon: 'https://ekskvtmatbrhqmdcybnc.supabase.co/storage/v1/object/public/imagenes/ICONOS%20MENU/ICONOS-16.svg',
+        items: ['Dirección creativa', 'Retrato', 'Arquitectura'] 
+      },
     ],
   },
   {
@@ -147,44 +173,48 @@ const Services = () => {
         >
 
           {section.type === 'intro' && (
-            <div className="max-w-4xl">
-              <h1
-                className="font-[family-name:var(--font-display)] font-semibold italic mb-8"
-                style={{ fontSize: 'clamp(3rem, 7vw, 9rem)', color: 'var(--color-fern)', lineHeight: 1, perspective: '600px' }}
-              >
-                <SplitWords text={section.title} />
-              </h1>
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4, duration: 0.6 }}
-                className="font-[family-name:var(--font-sans)] max-w-lg"
-                style={{ fontSize: 'clamp(1rem, 1.6vw, 1.8rem)', color: 'var(--color-fern)', lineHeight: 1.6 }}
-              >
-                {section.description}
-              </motion.p>
+            <div>
+              <div className="max-w-4xl mb-8">
+                <h1
+                  className="font-[family-name:var(--font-display)] font-semibold italic"
+                  style={{ fontSize: 'clamp(3rem, 7vw, 9rem)', color: 'var(--color-fern)', lineHeight: 1, perspective: '600px' }}
+                >
+                  <SplitWords text={section.title} />
+                </h1>
+              </div>
+              <div className="w-full flex justify-center">
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4, duration: 0.6 }}
+                  className="font-[family-name:var(--font-sans)] max-w-lg text-center"
+                  style={{ fontSize: 'clamp(1rem, 1.6vw, 1.8rem)', color: 'var(--color-fern)', lineHeight: 1.6 }}
+                >
+                  {section.description}
+                </motion.p>
+              </div>
             </div>
           )}
 
           {section.type === 'services' && (
-            <div>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-[3vw] max-w-6xl">
+            <div className="flex justify-center items-center min-h-[70vh]">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-[4vw] max-w-7xl">
                 {section.services.map((service, i) => (
                   <motion.div
                     key={service.name}
                     initial={{ opacity: 0, y: 40 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.08, duration: 0.5 }}
-                    className="flex flex-col gap-4"
+                    className="flex flex-col gap-4 items-center text-center"
                   >
-                    <PopIcon delay={i * 0.08 + 0.2} />
+                    <PopIcon icon={service.icon} delay={i * 0.08 + 0.2} />
                     <h3
                       className="font-[family-name:var(--font-accent)] font-bold whitespace-pre-line"
-                      style={{ fontSize: 'clamp(0.95rem, 1.3vw, 1.3rem)', color: 'var(--color-fern)', lineHeight: 1.2 }}
+                      style={{ fontSize: 'clamp(1.1rem, 1.6vw, 1.8rem)', color: 'var(--color-fern)', lineHeight: 1.2 }}
                     >
                       {service.name}
                     </h3>
-                    <ul className="space-y-1 text-[clamp(0.75rem,1vw,1rem)] text-[var(--color-fern)]/75 font-[family-name:var(--font-sans)]">
+                    <ul className="space-y-1.5 text-[clamp(0.85rem,1.1vw,1.2rem)] text-[var(--color-fern)]/75 font-[family-name:var(--font-sans)]">
                       {service.items.map((item, idx) => (
                         <motion.li
                           key={idx}
