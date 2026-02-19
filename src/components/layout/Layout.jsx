@@ -14,7 +14,7 @@ const Layout = ({ children, onResetToIntro, onNavigate, currentView, onProjectSe
         <Navbar onResetToIntro={onResetToIntro} onNavigate={onNavigate} currentView={currentView} />
       )}
       
-      <main className="flex-grow" style={{ paddingTop: 'clamp(56px, 7vw, 88px)' }}>
+      <main className="flex-grow" style={{ paddingTop: 'clamp(72px, 9vw, 110px)' }}>
         {children}
       </main>
       <Footer />

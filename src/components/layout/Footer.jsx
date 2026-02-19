@@ -6,13 +6,13 @@ const Footer = () => {
   const socialLinks = [
     {
       name: 'LinkedIn',
-      href: 'https://linkedin.com/in/tu-perfil', // Cambia por tu URL
+      href: 'https://www.linkedin.com/in/fernanda-cova-8a04091b7?utm_source=share_via&utm_content=profile&utm_medium=member_ios', // Cambia por tu URL
       icon: Linkedin,
       color: 'hover:text-[#0077b5]'
     },
     {
       name: 'Behance',
-      href: 'https://behance.net/tu-perfil', // Cambia por tu URL
+      href: 'https://www.behance.net/fernandacova', // Cambia por tu URL
       icon: () => (
         <svg
           className="w-6 h-6"
@@ -27,7 +27,7 @@ const Footer = () => {
     },
     {
       name: 'Email',
-      href: 'mailto:tu-email@ejemplo.com', // Cambia por tu email
+      href: 'covamartinezf@gmail.com', // Cambia por tu email
       icon: Mail,
       color: 'hover:text-melon'
     },

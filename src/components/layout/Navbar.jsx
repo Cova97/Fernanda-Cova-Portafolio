@@ -54,7 +54,7 @@ const Navbar = ({ onResetToIntro, onNavigate, currentView }) => {
         }}
       >
         <div className="w-full px-[4vw]">
-          <div className="flex justify-between items-center" style={{ height: 'clamp(56px, 7vw, 88px)' }}>
+          <div className="flex justify-between items-center" style={{ height: 'clamp(72px, 9vw, 110px)' }}>
             
             {/* Logo */}
             <motion.button
@@ -64,7 +64,7 @@ const Navbar = ({ onResetToIntro, onNavigate, currentView }) => {
               animate={{ opacity: 1, x: 0 }}
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.3 }}
-              style={{ height: 'clamp(40px, 5vw, 60px)' }}
+              style={{ height: 'clamp(52px, 6.5vw, 78px)' }}
             >
               <img
                 src="https://ekskvtmatbrhqmdcybnc.supabase.co/storage/v1/object/public/imagenes/LOGO/LOGO.svg"
@@ -81,13 +81,13 @@ const Navbar = ({ onResetToIntro, onNavigate, currentView }) => {
               animate={{ opacity: 1, x: 0 }}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
-              style={{ padding: 'clamp(6px, 1vw, 14px)' }}
+              style={{ padding: 'clamp(8px, 1.2vw, 16px)' }}
               aria-label="Toggle menu"
             >
               <motion.img
                 src="https://ekskvtmatbrhqmdcybnc.supabase.co/storage/v1/object/public/imagenes/ICONO%20HAMBURGUESA/ICONOS-17.svg"
                 alt="Menu"
-                style={{ width: 'clamp(24px, 3.5vw, 44px)', height: 'clamp(24px, 3.5vw, 44px)' }}
+                style={{ width: 'clamp(32px, 4.5vw, 56px)', height: 'clamp(32px, 4.5vw, 56px)' }}
                 animate={isOpen ? { rotate: 90 } : { rotate: 0 }}
                 transition={{ duration: 0.3 }}
               />
