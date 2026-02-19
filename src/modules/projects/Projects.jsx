@@ -1,102 +1,68 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
-import ProjectsSubNavbar from '../../components/layout/ProjectsSubNavbar';
 
-const Projects = () => {
-  const [currentProject, setCurrentProject] = useState(null);
+const Projects = ({ selectedProject }) => {
+  const [currentProject, setCurrentProject] = useState(selectedProject);
 
-  const projectsData = {
-    1: { name: 'Alferd Enchapados', description: 'Proyecto de enchapados y revestimientos de alta calidad.' },
-    2: { name: 'Gas GP', description: 'Soluciones integrales en distribución de gas.' },
-    3: { name: 'DG Seguros', description: 'Servicios de seguros personalizados.' },
-    4: { name: 'Butterhug', description: 'Marca de repostería artesanal.' },
-    5: { name: 'Punto Cinco', description: 'Estudio creativo multidisciplinario.' },
-  };
+  useEffect(() => {
+    if (selectedProject) {
+      setCurrentProject(selectedProject);
+    }
+  }, [selectedProject]);
 
-  const handleProjectSelect = (project) => {
-    setCurrentProject(project.id);
-  };
+  if (!currentProject) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[var(--color-parchment)]">
+        <p className="text-[var(--color-fern)] text-2xl font-[family-name:var(--font-sans)]">
+          Selecciona un proyecto
+        </p>
+      </div>
+    );
+  }
 
   return (
-    <div id="projects" className="relative min-h-screen bg-[var(--color-parchment)]">
-      
-      <ProjectsSubNavbar 
-        onProjectSelect={handleProjectSelect} 
-        currentProject={currentProject}
-      />
-
-      <div 
-        className="px-[6vw] py-[6vw] flex items-center justify-center"
-        style={{ 
-          minHeight: '100vh',
-          paddingTop: 'calc(clamp(56px, 7vw, 88px) + clamp(48px, 6vw, 72px) + 3vw)'
-        }}
+    <div className="min-h-screen bg-[var(--color-parchment)] px-[6vw] py-[8vw]">
+      <motion.div
+        key={currentProject.id}
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -30 }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       >
-        
-        {currentProject ? (
-          <motion.div
-            key={currentProject}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="max-w-5xl w-full"
-          >
-            <h2
-              className="font-[family-name:var(--font-display)] font-semibold italic mb-6"
-              style={{ fontSize: 'clamp(2.5rem, 6vw, 7rem)', color: 'var(--color-fern)', lineHeight: 1 }}
-            >
-              {projectsData[currentProject].name}
-            </h2>
-            
-            <p
-              className="font-[family-name:var(--font-sans)] mb-12"
-              style={{ fontSize: 'clamp(1rem, 1.6vw, 1.8rem)', color: 'var(--color-fern)', lineHeight: 1.6 }}
-            >
-              {projectsData[currentProject].description}
-            </p>
+        {/* Número del proyecto */}
+        <motion.span
+          className="font-[family-name:var(--font-accent)] font-bold text-[var(--color-fern)]/40 block mb-4"
+          style={{ fontSize: 'clamp(1.2rem, 2vw, 2.5rem)' }}
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.2 }}
+        >
+          {currentProject.number}
+        </motion.span>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {[1, 2, 3, 4].map((i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: i * 0.1, duration: 0.5 }}
-                  className="aspect-video bg-[#d4d0c8] rounded-xl flex items-center justify-center"
-                >
-                  <span className="text-[#a09a90] text-sm font-[family-name:var(--font-sans)]">
-                    Imagen {i}
-                  </span>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
+        {/* Título del proyecto */}
+        <motion.h1
+          className="font-[family-name:var(--font-display)] font-semibold italic text-[var(--color-melon)] mb-12"
+          style={{ fontSize: 'clamp(3rem, 8vw, 10rem)', lineHeight: 1 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+        >
+          {currentProject.name}
+        </motion.h1>
 
-        ) : (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-center max-w-3xl"
-          >
-            <h2
-              className="font-[family-name:var(--font-display)] font-semibold italic mb-6"
-              style={{ fontSize: 'clamp(3rem, 7vw, 9rem)', color: 'var(--color-fern)', lineHeight: 1 }}
-            >
-              Proyectos
-            </h2>
-            
-            <p
-              className="font-[family-name:var(--font-sans)] mb-8"
-              style={{ fontSize: 'clamp(1rem, 1.6vw, 1.8rem)', color: 'var(--color-fern)', lineHeight: 1.6 }}
-            >
-              Selecciona un proyecto del menú para ver los detalles.
-            </p>
-
-            <div className="text-6xl">🌼</div>
-          </motion.div>
-        )}
-
-      </div>
+        {/* Contenido del proyecto - placeholder por ahora */}
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 gap-8"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+        >
+          <div className="aspect-square bg-[#d4d0c8]/30 rounded-xl" />
+          <div className="aspect-square bg-[#d4d0c8]/30 rounded-xl" />
+          <div className="aspect-video md:col-span-2 bg-[#d4d0c8]/30 rounded-xl" />
+        </motion.div>
+      </motion.div>
     </div>
   );
 };

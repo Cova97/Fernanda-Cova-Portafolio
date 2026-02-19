@@ -15,6 +15,7 @@ const SECTIONS = { home: 'home', about: 'about', projects: 'projects', services:
 function App() {
   const [showIntro, setShowIntro]     = useState(true);
   const [currentView, setCurrentView] = useState(SECTIONS.home);
+  const [selectedProject, setSelectedProject] = useState(null);
 
   const handleIntroComplete = () => {
     setShowIntro(false);
@@ -24,12 +25,26 @@ function App() {
 
   const handleResetToIntro = () => {
     setShowIntro(true);
+    setSelectedProject(null);
     window.scrollTo({ top: 0 });
   };
 
   // Navega a una sección (cambia la vista activa)
   const handleNavigate = (section) => {
+    if (section === SECTIONS.projects) {
+      // Al navegar a proyectos, automáticamente mostrar el primero
+      setSelectedProject({ id: 1, name: 'Alferd Enchapados', number: '01' });
+    } else {
+      setSelectedProject(null);
+    }
     setCurrentView(section);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Maneja la selección de un proyecto específico
+  const handleProjectSelect = (project) => {
+    setSelectedProject(project);
+    setCurrentView(SECTIONS.projects);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -38,7 +53,12 @@ function App() {
   }
 
   return (
-    <Layout onResetToIntro={handleResetToIntro} onNavigate={handleNavigate} currentView={currentView}>
+    <Layout 
+      onResetToIntro={handleResetToIntro} 
+      onNavigate={handleNavigate} 
+      currentView={currentView}
+      onProjectSelect={handleProjectSelect}
+    >
       {/* Cada vista se monta/desmonta de forma independiente */}
       {currentView === SECTIONS.home && <Home onNavigate={handleNavigate} />}
 
@@ -48,7 +68,7 @@ function App() {
         </div>
       }>
         {currentView === SECTIONS.about    && <About />}
-        {currentView === SECTIONS.projects && <Projects />}
+        {currentView === SECTIONS.projects && <Projects selectedProject={selectedProject} />}
         {currentView === SECTIONS.services && <Services />}
       </Suspense>
     </Layout>
