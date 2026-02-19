@@ -25,8 +25,8 @@ const AutoCarousel2 = ({ images = [], speed = 0.3, aspectRatio = 'video' }) => {
         // Mover hacia la izquierda continuamente
         let newOffset = prev - (speed * delta / 16.67);
         
-        // Cada imagen ocupa 70% (65% + 2.5% margen × 2)
-        const singleSetWidth = images.length * 70;
+        // Cada imagen ocupa 50% (45% + 2.5% margen × 2)
+        const singleSetWidth = images.length * 50;
         
         // Reiniciar cuando se completa un set completo
         if (Math.abs(newOffset) >= singleSetWidth) {
@@ -65,7 +65,7 @@ const AutoCarousel2 = ({ images = [], speed = 0.3, aspectRatio = 'video' }) => {
     
     setOffset((prev) => {
       const newOffset = prev + percentDiff;
-      const singleSetWidth = images.length * 70;
+      const singleSetWidth = images.length * 50;
       
       // Normalizar para mantener loop
       if (newOffset > 0) return newOffset - singleSetWidth;
@@ -159,6 +159,7 @@ const AutoCarousel2 = ({ images = [], speed = 0.3, aspectRatio = 'video' }) => {
             className="flex-shrink-0 h-full relative overflow-hidden"
             style={{
               width: '65%',
+              height: '75%',
               marginRight: '2.5%',
               marginLeft: '2.5%',
             }}
