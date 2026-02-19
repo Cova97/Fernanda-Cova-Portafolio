@@ -60,7 +60,7 @@ const SplitText = ({ text, className = '', style = {} }) => {
 /* ══════════════════════════════════════════
    PopImage — parallax + tilt 3D + reveal
 ══════════════════════════════════════════ */
-const PopImage = ({ placeholder, className = '', parallaxStrength = 40 }) => {
+const PopImage = ({ src, placeholder, className = '', parallaxStrength = 40 }) => {
   const ref = useRef(null);
 
   /* Parallax vertical al scroll */
@@ -108,11 +108,19 @@ const PopImage = ({ placeholder, className = '', parallaxStrength = 40 }) => {
         style={{ y: smoothImgY }}
         className="w-full h-[115%] -mt-[7.5%]"
       >
-        <div className="w-full h-full bg-[#d4d0c8] flex items-center justify-center">
-          <span className="text-[#a09a90] text-sm font-[family-name:var(--font-sans)] select-none">
-            {placeholder}
-          </span>
-        </div>
+        {src ? (
+          <img
+            src={src}
+            alt=""
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <div className="w-full h-full bg-[#d4d0c8] flex items-center justify-center">
+            <span className="text-[#a09a90] text-sm font-[family-name:var(--font-sans)] select-none">
+              {placeholder}
+            </span>
+          </div>
+        )}
       </motion.div>
 
       {/* Overlay brillante en hover */}
@@ -150,129 +158,159 @@ const Home = ({ onNavigate }) => {
         <FloatingFlowers onNavigate={onNavigate} />
       </section>
 
-      {/* ── SECCIÓN 2 — Frase + imagen + descripción ── */}
-      <section className="min-h-screen px-8 md:px-16 lg:px-24 py-24 flex flex-col justify-center">
+      {/* ── SECCIÓN 2 — Presentación ── */}
+      <section className="min-h-screen px-8 md:px-16 lg:px-24 py-16 flex flex-col justify-center">
 
-        {/* Frase con palabras escalonadas */}
-        <div className="mb-16 max-w-4xl">
+        {/* Título extendido casi a 3/4 de pantalla */}
+        <div className="mb-10 max-w-[75%]">
           <h2
-            className="text-[clamp(3rem,8vw,8rem)] leading-[1.05] font-semibold text-[var(--color-melon)]"
+            className="text-[clamp(2rem,4.5vw,5.5rem)] leading-[1.1] font-semibold italic text-[var(--color-melon)]"
             style={{ fontFamily: 'var(--font-display)', perspective: '600px' }}
           >
             <SplitText text="No hay nada más armonioso que un proyecto que crece en su propia forma." />
           </h2>
         </div>
 
-        {/* Imagen + texto con entradas desde lados opuestos */}
-        <div className="flex flex-col md:flex-row gap-12 items-start">
+        {/* Layout: Imagen centro-izquierda + Textos sangría derecha */}
+        <div className="flex flex-col md:flex-row gap-8 items-center justify-between">
 
-          {/* Imagen — entra desde la izquierda */}
-          <FadeSection className="w-full md:w-[45%]" direction="up">
+          {/* Imagen más al centro */}
+          <FadeSection className="w-full md:w-[42%] md:ml-[8%]" direction="up">
             <PopImage
-              placeholder="insertar ilustración mía"
-              className="w-full aspect-[4/5]"
-              parallaxStrength={35}
+              src="https://ekskvtmatbrhqmdcybnc.supabase.co/storage/v1/object/public/imagenes/ILUSTRACIONES%20HOME/01.jpg"
+              className="w-full aspect-[3/4]"
+              parallaxStrength={30}
             />
           </FadeSection>
 
-          {/* Texto — entra desde la derecha con delay */}
-          <FadeSection className="flex-1 flex items-center" direction="up">
-            <motion.p
-              className="text-[clamp(1.2rem,2.5vw,3rem)] leading-relaxed text-[var(--color-fern)]"
-              style={{ fontFamily: 'var(--font-sans)', fontWeight: 400 }}
-            >
-              Soy diseñadora estratégica y alguien que se apasiona por la
-              gráfica y el arte. Disfruto hacer del diseño una multidisciplina;
-              explorando y combinando áreas del diseño para aportar soluciones
-              integrales y creativas.
-            </motion.p>
-          </FadeSection>
+          {/* Textos en sangría derecha */}
+          <div className="w-full md:w-[40%] flex flex-col justify-center gap-6">
+            
+            {/* Texto 1 - color fern */}
+            <FadeSection direction="up">
+              <motion.p
+                className="text-[clamp(1.1rem,1.6vw,2rem)] leading-relaxed text-[var(--color-fern)]"
+                style={{ fontFamily: 'var(--font-sans)', fontWeight: 400 }}
+              >
+                Soy diseñadora estratégica y alguien que se apasiona por la gráfica y el arte.
+              </motion.p>
+            </FadeSection>
+
+            {/* Texto 2 - color fern también */}
+            <FadeSection direction="up">
+              <motion.p
+                className="text-[clamp(1.1rem,1.6vw,2rem)] leading-relaxed text-[var(--color-fern)]"
+                style={{ fontFamily: 'var(--font-sans)', fontWeight: 400 }}
+              >
+                Disfruto hacer del diseño una multidisciplina; explorando y combinando áreas del diseño para aportar soluciones integrales y creativas.
+              </motion.p>
+            </FadeSection>
+
+          </div>
         </div>
       </section>
 
       {/* ── SECCIÓN 3 — Metodología ── */}
-      <section className="min-h-screen px-8 md:px-16 lg:px-24 py-24 flex flex-col justify-center">
+      <section className="min-h-screen px-8 md:px-16 lg:px-24 py-16 flex flex-col justify-center">
 
-        <div className="mb-10" style={{ perspective: '600px' }}>
+        {/* Título a la izquierda */}
+        <div className="mb-8" style={{ perspective: '600px' }}>
           <h2
-            className="text-[clamp(3rem,8vw,8rem)] leading-[1.05] font-semibold italic text-[var(--color-fern)]"
+            className="text-[clamp(2.5rem,6vw,7rem)] leading-[1.05] font-semibold italic text-[var(--color-fern)]"
             style={{ fontFamily: 'var(--font-display)' }}
           >
             <SplitText text="Metodología" />
           </h2>
         </div>
 
-        <FadeSection>
-          <p
-            className="text-[clamp(1rem,2vw,3rem)] text-[var(--color-fern)]/80 max-w-3xl mb-16 leading-relaxed"
-            style={{ fontFamily: 'var(--font-sans)', fontWeight: 400 }}
-          >
-            En este espacio la precisión se funde con la libertad del diseño.
-            Cada proyecto se trata como un organismo único, transformando cada
-            idea desde un proceso sólido hasta convertirse en un sistema
-            completo y equilibrado.
-          </p>
-        </FadeSection>
-
-        {/* 4 pasos — entran escalonados */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
-          {[
-            {
-              title: 'Llamada de conocimiento',
-              desc:  'Inicio de comunicación con brief, investigación y análisis de datos para establecer una base estratégica sólida.',
-            },
-            {
-              title: 'Estrategia creativa',
-              desc:  'Definición y traducción de estrategia en sistemas visuales bajo una visión multidisciplinar.',
-            },
-            {
-              title: 'Diseño creativo',
-              desc:  'Fase de diseño y prototipado donde la técnica y la creatividad convergen. Fase de iteración y ajustes basados en feedback estratégico.',
-            },
-            {
-              title: 'Optimización de entregas',
-              desc:  'Preparación y exportación de archivos finales. Entrega de un sistema funcional y listo para su implementación.',
-            },
-          ].map((step, i) => (
-            <motion.div
-              key={step.title}
-              initial={{ opacity: 0, y: 50, scale: 0.95 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: false, margin: '-5% 0px -5% 0px' }}
-              transition={{ delay: i * 0.14, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              whileHover={{ y: -8, transition: { duration: 0.25 } }}
-              className="flex flex-col gap-4 cursor-default"
+        {/* Contenedor para párrafo + grid alineados a la derecha */}
+        <div className="ml-auto max-w-[85%]">
+          
+          {/* Párrafo */}
+          <FadeSection>
+            <p
+              className="text-[clamp(0.85rem,1.3vw,1.6rem)] text-[var(--color-fern)]/80 mb-10 leading-relaxed"
+              style={{ fontFamily: 'var(--font-sans)', fontWeight: 400 }}
             >
-              {/* Círculo decorativo con pulso */}
+              En este espacio la precisión se funde con la libertad del diseño.
+              Cada proyecto se trata como un organismo único, transformando cada
+              idea desde un proceso sólido hasta convertirse en un sistema
+              completo y equilibrado.
+            </p>
+          </FadeSection>
+
+          {/* Grid de 4 pasos con iconos SVG */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              {
+                icon: 'https://ekskvtmatbrhqmdcybnc.supabase.co/storage/v1/object/public/imagenes/METODOLOGIA/ICONOS-09.svg',
+                title: 'Llamada de conocimiento',
+                desc:  'Inicio de comunicación con brief, investigación y análisis de datos para establecer una base estratégica sólida.',
+              },
+              {
+                icon: 'https://ekskvtmatbrhqmdcybnc.supabase.co/storage/v1/object/public/imagenes/METODOLOGIA/ICONOS-10.svg',
+                title: 'Estrategia creativa',
+                desc:  'Definición y traducción de estrategia en sistemas visuales bajo una visión multidisciplinar.',
+              },
+              {
+                icon: 'https://ekskvtmatbrhqmdcybnc.supabase.co/storage/v1/object/public/imagenes/METODOLOGIA/ICONOS-11.svg',
+                title: 'Diseño creativo',
+                desc:  'Fase de diseño y prototipado donde la técnica y la creatividad convergen. Fase de iteración y ajustes basados en feedback estratégico.',
+              },
+              {
+                icon: 'https://ekskvtmatbrhqmdcybnc.supabase.co/storage/v1/object/public/imagenes/METODOLOGIA/ICONOS-12.svg',
+                title: 'Optimización de entregas',
+                desc:  'Preparación y exportación de archivos finales. Entrega de un sistema funcional y listo para su implementación.',
+              },
+            ].map((step, i) => (
               <motion.div
-                className="w-14 h-14 rounded-full bg-[#d4d0c8]"
-                whileInView={{ scale: [0, 1.15, 1] }}
-                viewport={{ once: false }}
-                transition={{ delay: i * 0.14 + 0.3, duration: 0.5 }}
-              />
-
-              <h3
-                className="text-[clamp(1.1rem,2vw,3rem)] font-semibold text-[var(--color-fern)] leading-tight"
-                style={{ fontFamily: 'var(--font-sans)' }}
+                key={step.title}
+                initial={{ opacity: 0, y: 40, scale: 0.95 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: false, margin: '-5% 0px -5% 0px' }}
+                transition={{ delay: i * 0.1, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                whileHover={{ y: -6, transition: { duration: 0.25 } }}
+                className="flex flex-col items-center gap-3 cursor-default"
               >
-                {step.title}
-              </h3>
+                {/* Icono SVG centrado */}
+                <motion.div
+                  whileInView={{ scale: [0, 1.1, 1] }}
+                  viewport={{ once: false }}
+                  transition={{ delay: i * 0.1 + 0.2, duration: 0.4 }}
+                  className="w-14 h-14"
+                >
+                  <img
+                    src={step.icon}
+                    alt={step.title}
+                    className="w-full h-full object-contain"
+                  />
+                </motion.div>
 
-              <p
-                className="text-[clamp(0.85rem,1.2vw,1.5rem)] text-[var(--color-fern)]/75 leading-relaxed"
-                style={{ fontFamily: 'var(--font-sans)', fontWeight: 400 }}
-              >
-                {step.desc}
-              </p>
-            </motion.div>
-          ))}
+                <h3
+                  className="text-[clamp(0.95rem,1.4vw,1.8rem)] font-semibold text-[var(--color-fern)] leading-tight text-center"
+                  style={{ fontFamily: 'var(--font-sans)' }}
+                >
+                  {step.title}
+                </h3>
+
+                <p
+                  className="text-[clamp(0.75rem,1vw,1.2rem)] text-[var(--color-fern)]/75 leading-relaxed text-center"
+                  style={{ fontFamily: 'var(--font-sans)', fontWeight: 400 }}
+                >
+                  {step.desc}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+
         </div>
+
       </section>
 
       {/* ── SECCIÓN 4 — Frase + imagen ancha ── */}
-      <section className="min-h-screen px-8 md:px-16 lg:px-24 py-24 flex flex-col justify-center">
+      <section className="min-h-screen px-8 md:px-16 lg:px-24 py-16 flex flex-col justify-center">
 
-        <div className="mb-16 max-w-3xl" style={{ perspective: '600px' }}>
+        <div className="mb-12 max-w-3xl" style={{ perspective: '600px' }}>
           <h2
             className="text-[clamp(3rem,8vw,8rem)] leading-[1.05] font-semibold text-[var(--color-melon)]"
             style={{ fontFamily: 'var(--font-display)' }}
@@ -283,9 +321,9 @@ const Home = ({ onNavigate }) => {
 
         <FadeSection>
           <PopImage
-            placeholder="insertar otra ilustración mía"
+            src="https://ekskvtmatbrhqmdcybnc.supabase.co/storage/v1/object/public/imagenes/ILUSTRACIONES%20HOME/02.jpg"
             className="w-full aspect-video"
-            parallaxStrength={25}
+            parallaxStrength={20}
           />
         </FadeSection>
 
