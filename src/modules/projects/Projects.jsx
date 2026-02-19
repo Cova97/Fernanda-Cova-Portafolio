@@ -1,5 +1,24 @@
-import { useEffect, useState } from 'react';
-import { motion } from 'motion/react';
+import { useEffect, useState, lazy, Suspense } from 'react';
+
+// Lazy load de cada proyecto
+const AlferdEnchapados = lazy(() => import('./pages/AlferdEnchapados'));
+const GasGP = lazy(() => import('./pages/GasGP'));
+const DGSeguros = lazy(() => import('./pages/DGSeguros'));
+const Butterhug = lazy(() => import('./pages/Butterhug'));
+const PuntoCinco = lazy(() => import('./pages/PuntoCinco'));
+// Placeholder para los demás proyectos
+const ComingSoon = ({ projectName }) => (
+  <div className="min-h-screen flex items-center justify-center bg-[var(--color-parchment)]">
+    <div className="text-center">
+      <h2 className="font-[family-name:var(--font-display)] text-[var(--color-melon)] text-6xl italic mb-4">
+        {projectName}
+      </h2>
+      <p className="font-[family-name:var(--font-sans)] text-[var(--color-fern)] text-xl">
+        Próximamente...
+      </p>
+    </div>
+  </div>
+);
 
 const Projects = ({ selectedProject }) => {
   const [currentProject, setCurrentProject] = useState(selectedProject);
@@ -20,50 +39,32 @@ const Projects = ({ selectedProject }) => {
     );
   }
 
+  // Renderizar el proyecto correspondiente
+  const renderProject = () => {
+    switch (currentProject.id) {
+      case 1:
+        return <AlferdEnchapados />;
+      case 2:
+        return <GasGP />;
+      case 3:
+        return <DGSeguros />;
+      case 4:
+        return <Butterhug />;
+      case 5:
+        return <PuntoCinco />;
+      default:
+        return <ComingSoon projectName={currentProject.name} />;
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-[var(--color-parchment)] px-[6vw] py-[8vw]">
-      <motion.div
-        key={currentProject.id}
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -30 }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      >
-        {/* Número del proyecto */}
-        <motion.span
-          className="font-[family-name:var(--font-accent)] font-bold text-[var(--color-fern)]/40 block mb-4"
-          style={{ fontSize: 'clamp(1.2rem, 2vw, 2.5rem)' }}
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.2 }}
-        >
-          {currentProject.number}
-        </motion.span>
-
-        {/* Título del proyecto */}
-        <motion.h1
-          className="font-[family-name:var(--font-display)] font-semibold italic text-[var(--color-melon)] mb-12"
-          style={{ fontSize: 'clamp(3rem, 8vw, 10rem)', lineHeight: 1 }}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-        >
-          {currentProject.name}
-        </motion.h1>
-
-        {/* Contenido del proyecto - placeholder por ahora */}
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 gap-8"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-        >
-          <div className="aspect-square bg-[#d4d0c8]/30 rounded-xl" />
-          <div className="aspect-square bg-[#d4d0c8]/30 rounded-xl" />
-          <div className="aspect-video md:col-span-2 bg-[#d4d0c8]/30 rounded-xl" />
-        </motion.div>
-      </motion.div>
-    </div>
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-[var(--color-parchment)]">
+        <span className="text-6xl animate-spin">🌸</span>
+      </div>
+    }>
+      {renderProject()}
+    </Suspense>
   );
 };
 
